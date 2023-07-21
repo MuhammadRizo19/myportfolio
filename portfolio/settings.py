@@ -1,5 +1,9 @@
 import os
 from pathlib import Path
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,12 +13,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u6-66+e#5b!04jm*1t_&ofouch5!+e8_!0c+h5u^=-m+nvgg*z'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','muhammadrizodev.uz']
 
 
 # Application definition
@@ -42,6 +46,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
+
+SESSION_EXPIRE_SECONDS = 1800
+
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
+SESSION_TIMEOUT_REDIRECT = 'index'
 
 TEMPLATES = [
     {
@@ -97,12 +107,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
